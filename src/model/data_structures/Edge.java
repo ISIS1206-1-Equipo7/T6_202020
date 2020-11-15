@@ -2,7 +2,10 @@ package model.data_structures;
 
 public class Edge <K extends Comparable<K>, V>
 {
-	
+	//Atributos
+	private Vertex<K,V> source;
+	private Vertex<K,V> dest;
+	private double weight;
 	
 	//---------------------
 	// CONSTRUCTOR
@@ -13,8 +16,10 @@ public class Edge <K extends Comparable<K>, V>
 	 * @param dest
 	 * @param weight
 	 */
-	public Edge(Vertex<K,V> source, Vertex<K,V> dest, double weight) {
-		
+	public Edge(Vertex<K,V> pSource, Vertex<K,V> pDest, double pWeight) {
+		this.source = pSource;
+		this.dest = pDest;
+		this.weight = pWeight;
 	}
 	
 	
@@ -26,7 +31,7 @@ public class Edge <K extends Comparable<K>, V>
 	 * @return Vertex (Nodo) de origen.
 	 */
 	public Vertex<K,V> getSource(){
-		return null;
+		return source;
 	}
 	
 	/**
@@ -34,7 +39,7 @@ public class Edge <K extends Comparable<K>, V>
 	 * @return vertice de destino.
 	 */
 	public Vertex<K,V> getDest(){
-		return null;
+		return dest;
 		
 	}
 	
@@ -43,7 +48,7 @@ public class Edge <K extends Comparable<K>, V>
 	 * @return peso (tiempo) del arco.
 	 */
 	public double weight() {
-		return 0;
+		return weight;
 		
 	}
 	
@@ -51,8 +56,8 @@ public class Edge <K extends Comparable<K>, V>
 	 * Modifica el peso del arco.
 	 * @param weight
 	 */
-	public void setWeight(double weight) {
-		
+	public void setWeight(double pWeight) {
+		this.weight = pWeight;
 	}
 	
 }

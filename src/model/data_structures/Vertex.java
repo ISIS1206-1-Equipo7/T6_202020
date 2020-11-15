@@ -146,7 +146,7 @@ public class Vertex <K extends Comparable<K>, V>
 	 * @return LinkedList con los vertices adyacentes (salientes a este)
 	 */
 	public LinkedList<Vertex<K,V>> vertices(){
-		return null;
+		return vertices;
 		
 	}
 	/**
@@ -154,7 +154,7 @@ public class Vertex <K extends Comparable<K>, V>
 	 * @return LinkedList con los arcos adyacentes (salientes) de este vertice (Nodo)
 	 */
 	public LinkedList<Edge<K,V>> edges(){
-		return null;
+		return edges;
 		
 	}
 
