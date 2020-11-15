@@ -2,7 +2,7 @@ package model.data_structures;
 
 import java.util.LinkedList;
 
-public interface IDiGraph <K, V>
+public interface IDiGraph <K extends Comparable<K>, V>
 {
 	
 	/**

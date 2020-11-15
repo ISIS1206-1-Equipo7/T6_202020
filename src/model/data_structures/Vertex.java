@@ -99,6 +99,7 @@ public class Vertex <K extends Comparable<K>, V>
 	 * @return LinkedList con los arcos adyacentes (salientes) de este vertice (Nodo)
 	 */
 	public LinkedList<Edge<K,V>> edges(){
+		return null;
 		
 	}
 
