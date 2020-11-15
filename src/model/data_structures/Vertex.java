@@ -11,7 +11,10 @@ public class Vertex <K extends Comparable<K>, V>
 	
 	private LinkedList<Edge<K,V>> edges;
 	private LinkedList<Vertex<K,V>> vertices;
-
+	private int inDegree;
+	private K id;
+	private V value;
+	private boolean isMarked;
 	
 	//---------------------
 	// CONSTRUCTOR
@@ -22,6 +25,16 @@ public class Vertex <K extends Comparable<K>, V>
 	 * @param value
 	 */
 	public Vertex(K id, V value) {
+		
+		this.inDegree =0;
+		this.id = id;
+		this.value = value;
+		this.isMarked = false;
+		
+		// inicializa listas:
+		this.edges = new LinkedList<Edge<K,V>>();
+		this.vertices  = new LinkedList<Vertex<K,V>>();
+		
 		
 	}
 	
@@ -35,7 +48,7 @@ public class Vertex <K extends Comparable<K>, V>
 	 */
 	public K getId()
 	{
-		return null;
+		return id;
 	}
 	
 	/**
@@ -43,7 +56,8 @@ public class Vertex <K extends Comparable<K>, V>
 	 * @return V valor asociado al vertice (Nodo)
 	 */
 	public V getInfo() {
-		return null;
+		
+		return value;
 	}
 	
 	/**
@@ -51,7 +65,7 @@ public class Vertex <K extends Comparable<K>, V>
 	 * @return True si el vertice esta marcado, false si no.
 	 */
 	public boolean getMark() {
-		return false;
+		return isMarked;
 		
 	}
 	/**
@@ -71,30 +85,37 @@ public class Vertex <K extends Comparable<K>, V>
 	 * Marca el vertice
 	 */
 	public void mark() {
-		
+		isMarked = true;
 	}
 	
 	/**
 	 * Desmarca el vertice
 	 */
 	public void unmark() {
-		
+		isMarked = false;
 	}
 	
 	/**
 	 * Retorna el numero de arcos (salientes) del vertice,
-	 * @return Int numero de arcos salientes del vertice.
+	 * @return Int numero de arcos salientes (que salen)  del vertice.
 	 */
 	public int outdegree() {
-		return 0;
+		return edges.size();
 	}
 	
+	/**
+	 * agrega un grado mas para representar un nuevo arco entrante a este nodo.
+	 */
+	public void addInDegree() {
+		 
+		inDegree ++;
+	}
 	/**
 	 * Retorna el numero de arcos (entrantes) del vertice
 	 * @return Int numero de arcos entrantes del vertice.
 	 */
 	public int indegree() {
-		return 0;
+		return inDegree;
 	}
 	
 	/**
@@ -102,8 +123,22 @@ public class Vertex <K extends Comparable<K>, V>
 	 * @param vertex
 	 * @return El arco entre este vertice y el que se pasa por parametro.
 	 */
-	public Edge<K,V> getEdge(K vertex){
-		return null;
+	public Edge<K,V> getEdge(K idVertex){
+		
+		Edge<K,V> result = null;
+		if(!edges.isEmpty()) {
+			
+			for(Edge<K,V> edge : edges) {
+				
+				if(edge.getDest().getId().equals(idVertex)) {
+					result = edge;
+					break;
+				}
+					
+			}
+			
+		}
+		return result;
 	}
 	
 	/**
