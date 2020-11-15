@@ -5,6 +5,17 @@ import java.util.LinkedList;
 public class Vertex <K extends Comparable<K>, V>
 {
 
+	//---------------------
+	// ATRIBUTOS
+	//---------------------
+	
+	private LinkedList<Edge<K,V>> edges;
+	private LinkedList<Vertex<K,V>> vertices;
+
+	
+	//---------------------
+	// CONSTRUCTOR
+	//---------------------
 	/**
 	 * Crea un vertice con identificador unico y valor (informacion asociada), el vertice inicia desmarcado
 	 * @param id
@@ -14,6 +25,10 @@ public class Vertex <K extends Comparable<K>, V>
 		
 	}
 	
+	
+	//---------------------
+	// METODOS
+	//---------------------
 	/**
 	 * devuelve el identificador del vertice.
 	 * @return K id del vertice (Nodo)
@@ -44,6 +59,11 @@ public class Vertex <K extends Comparable<K>, V>
 	 * @param edge
 	 */
 	public void addEdge(Edge<K,V> edge) {
+		
+		edges.add(edge); // agrega el arco a la lista de arcos salientes de este vertice
+		Vertex<K,V> adjacente = edge.getDest();
+		vertices.add(adjacente); // agrega el vertice destino a la lista de vertices adyacentes a este.
+		
 		
 	}
 	

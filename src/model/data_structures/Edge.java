@@ -17,6 +17,10 @@ public class Edge <K extends Comparable<K>, V>
 		
 	}
 	
+	
+	//---------------------
+	// METODOS
+	//---------------------
 	/**
 	 * Devuelve el vertice origen
 	 * @return Vertex (Nodo) de origen.
