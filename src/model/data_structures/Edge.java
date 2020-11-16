@@ -2,10 +2,16 @@ package model.data_structures;
 
 public class Edge <K extends Comparable<K>, V>
 {
-	//Atributos
+	//---------------------
+	// ATRIBUTOS
+	//---------------------
 	private Vertex<K,V> source;
 	private Vertex<K,V> dest;
 	private double weight;
+	
+	// ESTOS SON POSIBLES ATRIBUTOS QUE NECESITEMOS PARA ACTUALIZAR EL PESO:
+	private double cumWeight;
+	private int repetitions;
 	
 	//---------------------
 	// CONSTRUCTOR
@@ -19,7 +25,9 @@ public class Edge <K extends Comparable<K>, V>
 	public Edge(Vertex<K,V> pSource, Vertex<K,V> pDest, double pWeight) {
 		this.source = pSource;
 		this.dest = pDest;
-		this.weight = pWeight;
+		this.cumWeight = pWeight;
+		this.repetitions = 1;
+		this.weight = cumWeight/repetitions;
 	}
 	
 	
@@ -57,7 +65,12 @@ public class Edge <K extends Comparable<K>, V>
 	 * @param weight
 	 */
 	public void setWeight(double pWeight) {
-		this.weight = pWeight;
+		
+		cumWeight = cumWeight + pWeight;	// suma de todos los pesos acumulados hasta ahora.
+		repetitions ++;						// suma de todas las veces que se ha ajustado el peso para este vertice
+		
+		weight = cumWeight/repetitions;  // saca el promedio del tiempo hasta el momento.
+		
 	}
 	
 }

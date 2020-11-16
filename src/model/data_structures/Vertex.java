@@ -74,6 +74,13 @@ public class Vertex <K extends Comparable<K>, V>
 	 */
 	public void addEdge(Edge<K,V> edge) {
 		
+		if(edges.contains(edge))
+			throw new IllegalArgumentException("el arco que se intenta agregar ya existe");
+		
+		if(edge.getSource().getId().compareTo(this.id)!=0)
+			throw new IllegalArgumentException("el arco que se intenta agregar no incluye este vertice");
+
+		
 		edges.add(edge); // agrega el arco a la lista de arcos salientes de este vertice
 		Vertex<K,V> adjacente = edge.getDest();
 		vertices.add(adjacente); // agrega el vertice destino a la lista de vertices adyacentes a este.
@@ -119,31 +126,29 @@ public class Vertex <K extends Comparable<K>, V>
 	}
 	
 	/**
-	 * Retorna el arco con el vertice vertex (si existe). Retorna null si no existe.
+	 * Retorna el arco entre este vertice y el vertice pasado por parametro (si existe). Retorna null si no existe.
 	 * @param vertex
 	 * @return El arco entre este vertice y el que se pasa por parametro.
 	 */
 	public Edge<K,V> getEdge(K idVertex){
 		
-		Edge<K,V> result = null;
+		
 		if(!edges.isEmpty()) {
 			
 			for(Edge<K,V> edge : edges) {
 				
-				if(edge.getDest().getId().equals(idVertex)) {
-					result = edge;
-					break;
-				}
+				if(edge.getDest().getId().equals(idVertex))
+					return edge;
 					
 			}
 			
 		}
-		return result;
+		return null;
 	}
 	
 	/**
-	 * Retorna una lista con sus vertices adyacentes (salientes)
-	 * @return LinkedList con los vertices adyacentes (salientes a este)
+	 * Retorna una lista con sus vertices adyacentes 
+	 * @return LinkedList con los vertices adyacentes
 	 */
 	public LinkedList<Vertex<K,V>> vertices(){
 		return vertices;

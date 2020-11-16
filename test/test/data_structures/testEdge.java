@@ -7,26 +7,27 @@ import model.data_structures.Vertex;
 
 public class testEdge {
 	
-	private Edge<Integer, String> arco;
+	
+	private Edge<String, String> arco;
 	//private Vertex<Integer, Integer> vertice;
 	
 	@Before
 	public void Setup1() {
-		Vertex source = new Vertex<Integer, String>(1, "Uno");
-		Vertex dest = new Vertex<Integer, String>(2, "Dos");
+		Vertex<String, String> source = new Vertex<String, String>("1", "Uno");
+		Vertex<String,String> dest = new Vertex<String, String>("2", "Dos");
 		double weight = 0.5;
 		arco = new Edge<>(source, dest, weight);
 	}
 	
 	@Test
 	public void testGetSource() {
-		assertTrue(arco.getSource().getId()==1);
+		assertTrue(arco.getSource().getId()=="1");
 		assertTrue(arco.getSource().getInfo().equals("Uno"));
 	}
 	
 	@Test
 	public void testGetDest() {
-		assertTrue(arco.getDest().getId()==2);
+		assertTrue(arco.getDest().getId()=="2");
 		assertTrue(arco.getDest().getInfo().equals("Dos"));
 	}
 	
@@ -37,8 +38,9 @@ public class testEdge {
 	
 	@Test
 	public void testSetWeight() {
-		arco.setWeight(0.10);
-		assertTrue(arco.weight()==0.10);
+		arco.setWeight(3.5);
+		assertTrue(arco.weight()==2.0);
+		
 	}
 	
 	
