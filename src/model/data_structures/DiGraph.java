@@ -12,7 +12,7 @@ public class DiGraph <K extends Comparable<K>, V> implements IDiGraph< K, V>
 
 
     private int edges;              // numero de arcos en este digrafo
-   // private int vertices;			// numero de vertices en este digrafo
+    //private int vertices;			// numero de vertices en este digrafo
     private ArrayList<Vertex<K,V>> adj;
     private int initialSize;
     
