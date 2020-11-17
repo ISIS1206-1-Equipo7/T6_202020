@@ -151,15 +151,20 @@ public class Modelo {
 				// gender
 				String gender = camposDatos[14];
 				
-				Viaje viaje = new Viaje(tripDuration, startTime, stopTime, startID, startName, startLatitude, startLongitude, endID, endName, endLatitude, endLongitude, bikeID, userType, birthYear, gender);
+				Station iStation = new Station(startTime, startID, startName, startLatitude, startLongitude);
+				Station fStation = new Station(stopTime, endID, endName, endLatitude, endLongitude);
+				
+				User user = new User(bikeID, userType, birthYear, gender);
+				
+				Trip trip = new Trip(iStation, fStation, tripDuration, user);
 				
 				// si alguna de las estaciones (vertices) no esta en el grafo, la agrega:
 				if (!grafo.containsVertex(startID)) {
-					grafo.insertVertex(startID, viaje);
+					grafo.insertVertex(startID, iStation);
 				}
 				
 				if (!grafo.containsVertex(endID)) {
-					grafo.insertVertex(endID, viaje);
+					grafo.insertVertex(endID, fStation);
 				}
 				
 				// luego de agregar las estaciones agrega el nuevo arco o modifica el peso del arco existente:
@@ -173,9 +178,7 @@ public class Modelo {
 					grafo.addEdge(startID, endID, duration);
 				}
 				catch(IllegalArgumentException e) {		
-					
 					if(e.getMessage().equals("el arco que se intenta agregar ya existe")) {  // el arco ya se habia creado
-						
 						grafo.getVertex(startID).getEdge(endID).setWeight(duration); // recalcula el peso del arco existente
 					}
 					else {
@@ -183,10 +186,8 @@ public class Modelo {
 					}
 				}
 				catch(IndexOutOfBoundsException i) {		// error en la carga de datos
-					
 					i.printStackTrace();
 				}
-				
 				
 				contador ++;
 			}
