@@ -60,7 +60,7 @@ public class testVertex {
 		assertTrue(vertice.edges().isEmpty()); //La lista de arcos debe estar vacia
 		assertTrue(vertice.vertices().isEmpty());//La lista de vertices
 		source.addEdge(arco);				   //Se agrega el arco, arco
-		assertFalse(source.edges().isEmpty());//La lista de arcos ya no debe estar vacia
+		assertFalse(source.edges().isEmpty());//La lista de arcos no debe estar vacia
 		assertFalse(source.vertices().isEmpty());//La lista de vertices ya no debe estar vacia
 		assertTrue(source.edges().contains(arco));//La lista debe contener el arco previamente agregado
 		assertFalse(source.edges().contains(arco2));// La lista no debe contener el arco no agregado

@@ -74,8 +74,13 @@ public class Vertex <K extends Comparable<K>, V>
 	 */
 	public void addEdge(Edge<K,V> edge) {
 		
-		if(edges.contains(edge))
-			throw new IllegalArgumentException("el arco que se intenta agregar ya existe");
+		// verifica que el arco que se intenta agregar no exista.
+		for( Edge<K,V> arco : edges) {
+			
+			if(arco.compareTo(edge)== 0) {
+				throw new IllegalArgumentException("el arco que se intenta agregar ya existe");
+			}
+		}
 		
 		if(edge.getSource().getId().compareTo(this.id)!=0)
 			throw new IllegalArgumentException("el arco que se intenta agregar no incluye este vertice");

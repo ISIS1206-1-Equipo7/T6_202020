@@ -78,7 +78,7 @@ public class DiGraph <K extends Comparable<K>, V> implements IDiGraph< K, V>
 		Vertex<K,V> nuevo = new Vertex<K,V>(id, value);
 		int pos = Integer.parseInt((String) id);
 		
-		if( grafo.size()!=0 && grafo.get(pos)!= null)
+		if(grafo.get(pos)!= null)
 			throw new IllegalArgumentException("el vertice que se intenta agregar ya existe en la estructura.");
 		
 		grafo.add(pos, nuevo); // agrega a la lista en la posicion del Id, automticamente se actualiza el numVertices.
@@ -92,7 +92,7 @@ public class DiGraph <K extends Comparable<K>, V> implements IDiGraph< K, V>
 		int destino = Integer.parseInt((String) dest);
 
 		if(inicio <0 || destino <0 || inicio >= initialSize || destino >= initialSize ) // valida entradas de parametros
-			throw new  IllegalArgumentException("Id de inicio o de fin tienen que estar dentro de los limites.");
+			throw new  IndexOutOfBoundsException("Id de inicio o de fin tienen que estar dentro de los limites.");
 		
 		Vertex<K,V> nodoSource = grafo.get(inicio);
 		Vertex<K,V> nodoDestino = grafo.get(destino);

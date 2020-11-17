@@ -9,7 +9,7 @@ public class Edge <K extends Comparable<K>, V>
 	private Vertex<K,V> dest;
 	private double weight;
 	
-	// ESTOS SON POSIBLES ATRIBUTOS QUE NECESITEMOS PARA ACTUALIZAR EL PESO:
+	// ESTOS SON  ATRIBUTOS QUE NECESITEMOS PARA ACTUALIZAR EL PESO:
 	private double cumWeight;
 	private int repetitions;
 	
@@ -71,6 +71,20 @@ public class Edge <K extends Comparable<K>, V>
 		
 		weight = cumWeight/repetitions;  // saca el promedio del tiempo hasta el momento.
 		
+	}
+	
+	/**
+	 *  compara dos arcos para saber si conectan a la misma pareja de vertices.
+	 * @param that
+	 * @return int 0 si los dos arcos son iguales, 1 de lo contrario.
+	 */
+	public int compareTo(Edge<K,V> that) {
+		
+		if(this.getSource().getId().equals(that.getSource().getId()) && this.getDest().getId().equals(that.getDest().getId()))
+			return 0;
+		else {
+			return 1;
+		}
 	}
 	
 }

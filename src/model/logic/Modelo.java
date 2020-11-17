@@ -60,7 +60,7 @@ public class Modelo {
 	 */
 	public Modelo()
 	{
-		grafo = new DiGraph(10);
+		grafo = new DiGraph(3665);
 	}
 
 	/**
@@ -95,8 +95,7 @@ public class Modelo {
 		
 		// IMPRIMIR
 		
-		
-		
+	
 		System.out.println("***** Informacion de la lectura de datos *****");
 		System.out.println("- Numero total de viajes leidos de los archivos: " + viajes);
 		System.out.println("- Numero total de estaciones (vertices) en el grafo: " + grafo.numVertices());
@@ -154,6 +153,7 @@ public class Modelo {
 				
 				Viaje viaje = new Viaje(tripDuration, startTime, stopTime, startID, startName, startLatitude, startLongitude, endID, endName, endLatitude, endLongitude, bikeID, userType, birthYear, gender);
 				
+				// si alguna de las estaciones (vertices) no esta en el grafo, la agrega:
 				if (!grafo.containsVertex(startID)) {
 					grafo.insertVertex(startID, viaje);
 				}
@@ -162,8 +162,31 @@ public class Modelo {
 					grafo.insertVertex(endID, viaje);
 				}
 				
+				// luego de agregar las estaciones agrega el nuevo arco o modifica el peso del arco existente:
+				// Esta modificacion se hace de la siguiente manera: si el arco entre ambas estaciones ya existe,
+				// llama a setWeight para modificar el peso del arco. Este peso es un promedio de todos los tiempos
+				// entre estas dos estaciones.
+				
 				double duration = Double.parseDouble(tripDuration);
-				grafo.addEdge(startID, endID, duration);
+				
+				try {
+					grafo.addEdge(startID, endID, duration);
+				}
+				catch(IllegalArgumentException e) {		
+					
+					if(e.getMessage().equals("el arco que se intenta agregar ya existe")) {  // el arco ya se habia creado
+						
+						grafo.getVertex(startID).getEdge(endID).setWeight(duration); // recalcula el peso del arco existente
+					}
+					else {
+						e.printStackTrace();
+					}
+				}
+				catch(IndexOutOfBoundsException i) {		// error en la carga de datos
+					
+					i.printStackTrace();
+				}
+				
 				
 				contador ++;
 			}

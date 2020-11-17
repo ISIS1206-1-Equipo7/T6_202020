@@ -59,7 +59,8 @@ public class testDiGraph {
 		grafo.addEdge("11", "4", 3.5);
 		grafo.addEdge("11", "12", 0.5);
 		grafo.addEdge("12", "9", 1.5);
-		grafo.addEdge("15", "19", 2.0);
+		grafo.addEdge("15", "19", 2.0); //23
+		
 		
 
 	}
@@ -70,10 +71,23 @@ public class testDiGraph {
 		assertFalse(grafo.containsVertex("13"));
 		assertTrue(grafo.containsVertex("9"));
 	}
+	
 	@Test
 	public void testNumEdges() {
-		
+
 		assertTrue(grafo.numEdges()==23);
+		
+		try {
+			grafo.addEdge("15", "19", 3.0); //24
+		}
+		catch(Exception e) {
+			
+			assertTrue(e.getMessage().equals("el arco que se intenta agregar ya existe"));
+			
+			grafo.getVertex("15").getEdge("19").setWeight(3.0);
+			assertTrue(grafo.getVertex("15").getEdge("19").weight()==2.5);
+		}
+		
 	}
 	
 	@Test
@@ -89,6 +103,7 @@ public class testDiGraph {
 		}
 		catch( Exception e) {
 			
+			assertTrue(e.getMessage().equals("el vertice que se intenta agregar ya existe en la estructura."));
 			assertTrue(grafo.numVertices()==15);
 		}
 	}
