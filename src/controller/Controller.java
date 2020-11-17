@@ -50,7 +50,7 @@ public class Controller {
 			{
 				view.printMessage("Opcion invalida. Debe digitar un numero. Vuelva a intentar");
 				lector.nextLine();
-				 option = lector.nextInt();
+				option = lector.nextInt();
 			}
 			
 			switch(option)

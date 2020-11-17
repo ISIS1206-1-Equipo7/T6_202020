@@ -3,7 +3,6 @@ package model.data_structures;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
-import model.logic.Accidente;
 
 public class BinarySearchTree<K extends Comparable<K>,V> implements TablaSimbolosOrdenada<K,V>
 {
