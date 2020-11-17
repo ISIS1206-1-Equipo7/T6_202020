@@ -95,6 +95,8 @@ public class Modelo {
 		
 		// IMPRIMIR
 		
+		
+		
 		System.out.println("***** Informacion de la lectura de datos *****");
 		System.out.println("- Numero total de viajes leidos de los archivos: " + viajes);
 		System.out.println("- Numero total de estaciones (vertices) en el grafo: " + grafo.numVertices());
@@ -176,5 +178,13 @@ public class Modelo {
 			System.out.println("Error al cargar los datos: " + e.getMessage());
 			return 0;
 		}
+	}
+	
+	private void minEdge() {
+		
+	}
+	
+	private void maxEdge() {
+		
 	}
 }
