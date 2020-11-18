@@ -18,6 +18,7 @@ public class View
 		{
 			System.out.println("********* Escriba el número correspondiente a lo que desea hacer *********");
 			System.out.println("[0] Importar Datos");
+			System.out.println("[1] Consultar los grados de una estacion por ID");
 		}
 
 		/**

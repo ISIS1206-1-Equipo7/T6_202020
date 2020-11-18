@@ -13,6 +13,7 @@ import java.util.Map;
 
 import model.data_structures.BinarySearchTree;
 import model.data_structures.DiGraph;
+import model.data_structures.Edge;
 import model.data_structures.RedBlackTree;
 import model.data_structures.TablaHashSeparateChaining;
 
@@ -66,7 +67,7 @@ public class Modelo {
 	/**
 	 * Importa, lee y guarda los datos necesarios
 	 */
-	public void leerDatos(boolean todos)
+	public void leerDatos(String pareja)
 	{			
 		long tiempoI;
 		long tiempoF;
@@ -78,14 +79,20 @@ public class Modelo {
 		
 		int viajes = 0;
 		
-		if (todos) {
+		if (pareja.equals("1,2,3,4")) {
 			viajes += this.leerArchivo(ruta1);
 			viajes += this.leerArchivo(ruta2);
 			viajes += this.leerArchivo(ruta3);
 			viajes += this.leerArchivo(ruta4);
-		} else {
+		} else if (pareja.equals("1,2")){
 			viajes += this.leerArchivo(ruta1);
 			viajes += this.leerArchivo(ruta2);
+		} else if (pareja.equals("2,3")){
+			viajes += this.leerArchivo(ruta2);
+			viajes += this.leerArchivo(ruta3);
+		} else if (pareja.equals("3,4")){
+			viajes += this.leerArchivo(ruta3);
+			viajes += this.leerArchivo(ruta4);
 		}
 		
 		// ------------------------------------------------
@@ -95,13 +102,21 @@ public class Modelo {
 		
 		// IMPRIMIR
 		
+		Edge minEdge = this.getMinEdge();
+		Edge maxEdge = this.getMaxEdge();
 	
-		System.out.println("***** Informacion de la lectura de datos *****");
+		System.out.println("***** Informacion de la lectura de datos de archivos: " + pareja + " *****");
 		System.out.println("- Numero total de viajes leidos de los archivos: " + viajes);
 		System.out.println("- Numero total de estaciones (vertices) en el grafo: " + grafo.numVertices());
 		System.out.println("- Numero total de arcos entre estaciones: " + grafo.numEdges());
+		System.out.println("- El arco con el peso MINIMO tiene un valor de: " + minEdge.weight() + " y sus vertices son: " + minEdge.getSource().getId() + "-" + minEdge.getDest().getId());
+		System.out.println("- El arco con el peso MAXIMO tiene un valor de: " + maxEdge.weight() + " y sus vertices son: " + maxEdge.getSource().getId() + "-" + maxEdge.getDest().getId());
 	}
 	
+	/**
+	 * Lee un archivo por ruta especificada
+	 * @param ruta
+	 */
 	private int leerArchivo(String ruta) {
 		String lineaDatos;
 		int contador = 0;
@@ -154,16 +169,15 @@ public class Modelo {
 				Station iStation = new Station(startTime, startID, startName, startLatitude, startLongitude);
 				Station fStation = new Station(stopTime, endID, endName, endLatitude, endLongitude);
 				
-				User user = new User(bikeID, userType, birthYear, gender);
-				
-				Trip trip = new Trip(iStation, fStation, tripDuration, user);
+				//User user = new User(bikeID, userType, birthYear, gender);
+				//Trip trip = new Trip(iStation, fStation, tripDuration, user);
 				
 				// si alguna de las estaciones (vertices) no esta en el grafo, la agrega:
-				if (!grafo.containsVertex(startID)) {
+				if (grafo.containsVertex(startID) == false) {
 					grafo.insertVertex(startID, iStation);
 				}
 				
-				if (!grafo.containsVertex(endID)) {
+				if (grafo.containsVertex(endID) == false) {
 					grafo.insertVertex(endID, fStation);
 				}
 				
@@ -199,16 +213,57 @@ public class Modelo {
 			
 		} catch (Exception e)
 		{
-			System.out.println("Error al cargar los datos: " + e.getMessage());
-			return 0;
+			System.out.println("Error al cargar los datos: ");
+			e.printStackTrace();
+			return contador;
 		}
 	}
 	
-	private void minEdge() {
-		
+	/**
+	 * Retorna el arco con peso minimo
+	 */
+	private Edge getMinEdge() {
+		double min = 9999.0;
+		Edge minEdge = null;
+		for(Edge edge : (LinkedList<Edge>) grafo.edges()) {
+			if (edge.weight() < min) {
+				min = edge.weight();
+				minEdge = edge;
+			}
+		}
+		return minEdge;
 	}
 	
-	private void maxEdge() {
-		
+	/**
+	 * Retorna el arco con peso maximo
+	 */
+	private Edge getMaxEdge() {
+		double max = 0;
+		Edge maxEdge = null;
+		for(Edge edge : (LinkedList<Edge>) grafo.edges()) {
+			if (edge.weight() > max) {
+				max = edge.weight();
+				maxEdge = edge;
+			}
+		}
+		return maxEdge;
 	}
+	
+	/**
+	 * Resuelve el req. 1
+	 */
+	public void consultarGrado(String id) {
+		try {
+			if (grafo.containsVertex(id)) {
+				int in = grafo.indegree(id);
+				int out = grafo.outdegree(id);
+				System.out.println("La estacion con ID " + id + " tiene:\n- " + in + " grados de entrada\n- " + out + " grados de salida");
+			} else {
+				System.out.println("ID invalido");
+			}
+		} catch (Exception e) {
+			System.out.println("ID invalido");
+		}
+	}
+	
 }

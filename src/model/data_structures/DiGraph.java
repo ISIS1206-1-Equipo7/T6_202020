@@ -81,7 +81,7 @@ public class DiGraph <K extends Comparable<K>, V> implements IDiGraph< K, V>
 		if(grafo.get(pos)!= null)
 			throw new IllegalArgumentException("el vertice que se intenta agregar ya existe en la estructura.");
 		
-		grafo.add(pos, nuevo); // agrega a la lista en la posicion del Id, automticamente se actualiza el numVertices.
+		grafo.set(pos, nuevo); // agrega a la lista en la posicion del Id, automticamente se actualiza el numVertices.
 		listaVertices.add(nuevo); // guarda el vertice en una lista con todos los vertices.
 	}
 

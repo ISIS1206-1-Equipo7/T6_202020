@@ -58,17 +58,27 @@ public class Controller {
 
 			// Importa los datos
 			case 0:
-				view.printMessage("Desea importar todos los datos (4 archivos)?");
-				String todos = lector.next();
-				boolean bool = false;
-				if (todos.toUpperCase().equals("SI")) {
-					bool = true;
-				}
-				modelo.leerDatos(bool);
+				view.printMessage("Escriba la pareja separada por una coma (1,2 | 2,3 | 3,4 | 1,2,3,4)");
+				String pareja = lector.next();
+				modelo.leerDatos(pareja);
 				view.printMessage("Datos importados correctamente.");
 				cargados = true;
 				break;
 
+			// requerimiento 1
+			case 1:
+				if (!cargados) {
+					view.printMessage("Debe cargar los datos primero");
+					break;
+				}
+				
+				view.printMessage("Digite el ID de la estacion que desea consultar");
+				String id = lector.next();
+				
+				modelo.consultarGrado(id);
+				view.printMessage("Consulta terminada");
+				break;
+				
 			default: 
 				view.printMessage("--------- \n Opcion Invalida !! \n---------");
 				fin = true;
