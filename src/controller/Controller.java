@@ -58,25 +58,29 @@ public class Controller {
 
 			// Importa los datos
 			case 0:
-				view.printMessage("Escriba la pareja separada por una coma (1,2 | 2,3 | 3,4 | 1,2,3,4)");
+				
+				if(cargados == true ) {
+					modelo.limpiarConsulta();
+				}
+				view.printMessage("Escriba la pareja separada por una coma (e.g: 1,2 | 2,3 | 3,4 | 1,2,3,4)");
 				String pareja = lector.next();
 				modelo.leerDatos(pareja);
 				view.printMessage("Datos importados correctamente.");
 				cargados = true;
 				break;
 
-			// requerimiento 1
+			// resuelve el requerimiento 1
 			case 1:
 				if (!cargados) {
-					view.printMessage("Debe cargar los datos primero");
+					view.printMessage("Debe cargar los datos primero.");
 					break;
 				}
 				
-				view.printMessage("Digite el ID de la estacion que desea consultar");
+				view.printMessage("Digite el ID de la estacion que desea consultar.");
 				String id = lector.next();
 				
 				modelo.consultarGrado(id);
-				view.printMessage("Consulta terminada");
+				view.printMessage("Consulta terminada.");
 				break;
 				
 			default: 

@@ -6,16 +6,10 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Map;
-
-
-import model.data_structures.BinarySearchTree;
 import model.data_structures.DiGraph;
 import model.data_structures.Edge;
-import model.data_structures.RedBlackTree;
-import model.data_structures.TablaHashSeparateChaining;
+
 
 /**
  * Definicion del modelo del mundo
@@ -24,7 +18,7 @@ import model.data_structures.TablaHashSeparateChaining;
 public class Modelo {
 
 	//-----------
-	// CONSTANTES
+	// CONSTANTES:
 	//-----------
 	
 	/**
@@ -48,22 +42,32 @@ public class Modelo {
 	private static final String ruta4 = "data/201801-4-citibike-tripdata.csv";
 
 	//----------
-	// ATRIBUTOS
+	// ATRIBUTOS:
 	//----------
 	
 	/**
 	 * Estructura del grafo
 	 */
-	private DiGraph grafo;
+	private DiGraph<String,Station> grafo;
 
+	
+	//------------
+	// CONSTRUCTOR:
+	//------------
+	
 	/**
 	 * Constructor del modelo del mundo con capacidad predefinida
 	 */
 	public Modelo()
 	{
-		grafo = new DiGraph(3665);
+		grafo = new DiGraph<String,Station>(3665);
 	}
-
+	
+	
+	//------------
+	// METODO:
+	//------------
+	
 	/**
 	 * Importa, lee y guarda los datos necesarios
 	 */
@@ -102,8 +106,8 @@ public class Modelo {
 		
 		// IMPRIMIR
 		
-		Edge minEdge = this.getMinEdge();
-		Edge maxEdge = this.getMaxEdge();
+		Edge<String,Station> minEdge =  this.getMinEdge();
+		Edge<String, Station> maxEdge = this.getMaxEdge();
 	
 		System.out.println("***** Informacion de la lectura de datos de archivos: " + pareja + " *****");
 		System.out.println("- Numero total de viajes leidos de los archivos: " + viajes);
@@ -222,10 +226,11 @@ public class Modelo {
 	/**
 	 * Retorna el arco con peso minimo
 	 */
-	private Edge getMinEdge() {
+	private Edge<String,Station> getMinEdge() {
+		
 		double min = 9999.0;
-		Edge minEdge = null;
-		for(Edge edge : (LinkedList<Edge>) grafo.edges()) {
+		Edge<String,Station> minEdge = null;
+		for(Edge<String,Station> edge : (LinkedList<Edge<String,Station>>) grafo.edges()) {
 			if (edge.weight() < min) {
 				min = edge.weight();
 				minEdge = edge;
@@ -236,11 +241,13 @@ public class Modelo {
 	
 	/**
 	 * Retorna el arco con peso maximo
+	 * @return Edge con el maximo tripduration.
 	 */
-	private Edge getMaxEdge() {
+	private Edge<String,Station> getMaxEdge() {
+		
 		double max = 0;
-		Edge maxEdge = null;
-		for(Edge edge : (LinkedList<Edge>) grafo.edges()) {
+		Edge<String,Station> maxEdge = null;
+		for(Edge<String,Station> edge : (LinkedList<Edge<String,Station>>) grafo.edges()) {
 			if (edge.weight() > max) {
 				max = edge.weight();
 				maxEdge = edge;
@@ -251,19 +258,27 @@ public class Modelo {
 	
 	/**
 	 * Resuelve el req. 1
+	 * @return Edge con el minimo tripduration.
 	 */
 	public void consultarGrado(String id) {
 		try {
 			if (grafo.containsVertex(id)) {
 				int in = grafo.indegree(id);
 				int out = grafo.outdegree(id);
-				System.out.println("La estacion con ID " + id + " tiene:\n- " + in + " grados de entrada\n- " + out + " grados de salida");
-			} else {
-				System.out.println("ID invalido");
+				System.out.println("La estacion con ID: " + id + " tiene:\n- " + in + " grados de entrada\n- " + out + " grados de salida");
+				
+			} else {							// el id que se busca no existe en el grafo.
+				System.out.println("ID invalido.");
 			}
-		} catch (Exception e) {
-			System.out.println("ID invalido");
+		} catch (Exception e) {					// el id que se busca esta fuera de los limites del grafo.
+			System.out.println("ID invalido.");
 		}
+	}
+	
+	
+	public void limpiarConsulta() {
+		
+		grafo = new DiGraph<String, Station>(3665);
 	}
 	
 }
