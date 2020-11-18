@@ -1,6 +1,7 @@
 package controller;
 
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 
@@ -62,11 +63,12 @@ public class Controller {
 				if(cargados == true ) {
 					modelo.limpiarConsulta();
 				}
+				
 				view.printMessage("Escriba la pareja separada por una coma (e.g: 1,2 | 2,3 | 3,4 | 1,2,3,4)");
 				String pareja = lector.next();
 				modelo.leerDatos(pareja);
-				view.printMessage("Datos importados correctamente.");
 				cargados = true;
+				
 				break;
 
 			// resuelve el requerimiento 1

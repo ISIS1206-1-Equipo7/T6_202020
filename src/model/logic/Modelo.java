@@ -98,6 +98,10 @@ public class Modelo {
 			viajes += this.leerArchivo(ruta3);
 			viajes += this.leerArchivo(ruta4);
 		}
+		else {
+			System.out.println("Formato incorrecto");
+			return;
+		}
 		
 		// ------------------------------------------------
 		
@@ -108,6 +112,9 @@ public class Modelo {
 		
 		Edge<String,Station> minEdge =  this.getMinEdge();
 		Edge<String, Station> maxEdge = this.getMaxEdge();
+		
+		if(minEdge==null || maxEdge==null) // si los datos no fueron previamente adjuntados a la carpeta, esto pasa.
+			return;
 	
 		System.out.println("***** Informacion de la lectura de datos de archivos: " + pareja + " *****");
 		System.out.println("- Numero total de viajes leidos de los archivos: " + viajes);
@@ -115,6 +122,7 @@ public class Modelo {
 		System.out.println("- Numero total de arcos entre estaciones: " + grafo.numEdges());
 		System.out.println("- El arco con el peso MINIMO tiene un valor de: " + minEdge.weight() + " y sus vertices son: " + minEdge.getSource().getId() + "-" + minEdge.getDest().getId());
 		System.out.println("- El arco con el peso MAXIMO tiene un valor de: " + maxEdge.weight() + " y sus vertices son: " + maxEdge.getSource().getId() + "-" + maxEdge.getDest().getId());
+		System.out.println("Datos importados correctamente.");
 	}
 	
 	/**
@@ -218,7 +226,8 @@ public class Modelo {
 		} catch (Exception e)
 		{
 			System.out.println("Error al cargar los datos: ");
-			e.printStackTrace();
+			System.out.println("Debe adjuntar los datos a la carpeta data primero.");
+
 			return contador;
 		}
 	}
@@ -230,10 +239,13 @@ public class Modelo {
 		
 		double min = 9999.0;
 		Edge<String,Station> minEdge = null;
-		for(Edge<String,Station> edge : (LinkedList<Edge<String,Station>>) grafo.edges()) {
-			if (edge.weight() < min) {
-				min = edge.weight();
-				minEdge = edge;
+		
+		if(grafo.edges().size()>0) {
+			for(Edge<String,Station> edge : (LinkedList<Edge<String,Station>>) grafo.edges()) {
+				if (edge.weight() < min) {
+					min = edge.weight();
+					minEdge = edge;
+				}
 			}
 		}
 		return minEdge;
@@ -247,10 +259,12 @@ public class Modelo {
 		
 		double max = 0;
 		Edge<String,Station> maxEdge = null;
-		for(Edge<String,Station> edge : (LinkedList<Edge<String,Station>>) grafo.edges()) {
-			if (edge.weight() > max) {
-				max = edge.weight();
-				maxEdge = edge;
+		if(grafo.edges().size()>0) {
+			for(Edge<String,Station> edge : (LinkedList<Edge<String,Station>>) grafo.edges()) {
+				if (edge.weight() > max) {
+					max = edge.weight();
+					maxEdge = edge;
+				}
 			}
 		}
 		return maxEdge;
